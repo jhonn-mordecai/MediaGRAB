@@ -1,0 +1,6 @@
+{
+	"require": {
+		"madcoda/php-youtube-api": "1.*",
+		"abraham/twitteroauth": "0.6.4"
+	}
+}
