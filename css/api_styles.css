@@ -1,72 +1,70 @@
-		html, body {height:100%;}
-		body {margin:0; padding:0; background-color:#e9e7ec;}
-        *{font-family:Helvetica,Arial,sans-serif;}
-        h1, h4 {font-family:'Audiowide', Helvetica, Arial, sans-serif,cursive; color:#ffffff;text-align:center;}
-        
-        /* STICKY FOOTER */
-        div#main_container {margin:0; padding:0; min-height:100%; margin-bottom:0;}
-        div#main_container:after {content:""; display:block;}
-        div#main_container:after {height:15rem;}
-        
-        /* HEADER */
-        header {width:100%; margin:0; height:22rem; border-bottom:4px solid #8687a1; position:relative; background-color:#8687a1; background-image:url('../img/triangular.png');}
-        
-        
-        /* MAIN SEARCH BOX STYLES */
-        
-        div#ui_container {position:relative; top:-20rem;margin:0 auto; width:90%; min-width:17rem;max-width:50rem;}
-        div#ui_container div#intro {padding-bottom:3rem;}
-        div#ui_container h1 a {font-family:'Audiowide', Helvetica, Arial, sans-serif,cursive; font-size:2.8rem; margin:0; color:#ffffff; text-shadow:0 2px #6e6e86; text-decoration:none;}
-        div#ui_container p {font-family:'Raleway', Helvetica, Arial,sans-serif; color:#ffffff; font-weight:lighter; font-size:1.6rem; text-align:center;}
-        
-        div#search_container {
-	        background: #ffffff; /* Old browsers */
-			background: -moz-linear-gradient(top, #ffffff 1%, #ffffff 47%, #efefef 99%); /* FF3.6-15 */
-			background: -webkit-linear-gradient(top, #ffffff 1%,#ffffff 47%,#efefef 99%); /* Chrome10-25,Safari5.1-6 */
-			background: linear-gradient(to bottom, #ffffff 1%,#ffffff 47%,#efefef 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ 
-			position:relative; border:1px solid #8687a1; 
-			border-radius:5px; margin:0 auto;
-			padding:3rem 0 4.4rem 0;
-		}
-		
-		/* FORM + FORM CONTAINER STYLE */
-		
-        div#form_container {width:80%; text-align:center; margin:0 auto; border:1px solid #c9cbd9; border-radius:3px; padding:2rem 1rem; margin-top:1.6rem;}
-        div#form_container p {color:#484862; text-transform:uppercase; font-size:1rem; font-weight:bold; text-align:center; margin:0; padding-bottom:3rem;text-shadow:0px 1px 0px #484862;}
-        div#input_box {margin:0 auto; width:100%;position:relative; left:0.3rem;}
-        div#input_box input {padding:0.5rem;}
-        div#input_box button {padding:0.6rem 0.5rem 0.5rem 0.5rem; transition:0.2s; background-color:#ffffff; border:1px solid #c8c8c8;text-transform:uppercase; border-radius:2px; cursor:pointer;}
-        div#input_box button:hover {background-color:#8687a1;}
-        
-        
-        /* API RESULTS STYLES */
-        
-        div#result_container {width:100%; min-width:480px; max-width:1000px; margin:0 auto; margin-top:-13rem; position:relative; left:-0.9rem;}
-        ul#search_results {list-style-type: none; padding:0; margin:0;}
-        ul#search_results:after {display:block; content:""; clear:both;}
-        ul#search_results li {float:left; width:300px; margin:0 0 2rem 2rem;}
-        
-        /* Tile Styles */
-        ul#search_results li div.tile {padding:1.5rem; position:relative; background-color:#ffffff; text-align:center; height:300px; border:1px solid #8687a1; border-radius:3px;}      
-        ul#search_results li div.tile img.api_logo_35 {position:absolute; bottom:1rem; left:50%; margin-left:-17.5px;}
-        ul#search_results li div.tile img.api_logo_100 {position:absolute; bottom:1rem; left:50%; margin-left:-50px;}
-        ul#search_results li div.tile img.twitter_profile_img {float:left; margin-right:0.5rem; margin-top:1.2rem; padding:0.2rem; border:1px solid #8687a1; border-radius:1px;}
-        ul#search_results li div.tile p {text-align:left; line-height: 150%; font-size:0.9rem; color:#333333;}
-        ul#search_results li div.nyt_tile div.blurb_container {height:9rem; overflow:hidden;}
-        ul#search_results li div.nyt_tile div.blurb_container p.blurb {font-size:0.8rem;color:#2e2e2e;}
-        ul#search_results li div.tile p.date {font-size:0.9rem; color:#7f7f7f; margin-bottom:0rem;}
-        ul#search_results li div.youtube_tile p.date {margin-left:0.6rem;}
-        ul#search_results li div.tile h3 {text-transform:capitalize; text-align:center;margin-top:0;padding:0;}
-        ul#search_results li div.tile h3 a {text-decoration:none; color:#2e2e2e;}
-        ul#search_results li div.tile h3 a:hover {text-decoration:underline;}
-        
-        
-        /* FOOTER STYLES */
-        footer {height:15rem; width:100%; background-color:#484862;}
-        footer div#footer_container {width:90%; min-width:17rem; max-width:50rem; margin:0 auto; position:relative; top:1.8rem;}
-        footer div#footer_container h4 {font-family:'Audiowide', Helvetica, Arial, sans-serif,cursive; margin:0;}
-        footer div#footer_container h4 a {font-family:'Audiowide', Helvetica, Arial, sans-serif,cursive;font-size:1.5rem;text-decoration:none; color:#ffffff;}
-        footer div#footer_container p, footer div#footer_container a {font-family:'Raleway', Helvetica, Arial,sans-serif; text-decoration:none; color:#ffffff; text-align:center; font-size:1rem; line-height:150%;}
-        footer div#footer_container p a:hover {text-decoration:underline;}
-        span.divider {padding:0 1rem;}
-        footer div#footer_container p.copyright {font-size:0.8rem;}
+html, body {height:100%;}
+body {margin:0; padding:0; background-color:#e9e7ec;}
+*{font-family:Helvetica,Arial,sans-serif;}
+h1, h4 {font-family:'Audiowide', Helvetica, Arial, sans-serif,cursive; color:#ffffff;text-align:center;}
+.text-center {text-align:center;}
+
+/* STICKY FOOTER */
+div#main_container {margin:0; padding:0; min-height:100%; margin-bottom:0;}
+div#main_container:after {content:""; display:block;}
+div#main_container:after {height:15rem;}
+
+/* HEADER */
+header {width:100%; margin:0; height:22rem; border-bottom:4px solid #8687a1; position:relative; background-color:#8687a1; background-image:url('../img/triangular.png');}
+
+
+/* MAIN SEARCH BOX STYLES */
+div#ui_container {position:relative; top:-20rem;margin:0 auto; width:90%; min-width:17rem;max-width:50rem;}
+div#ui_container div#intro {padding-bottom:3rem;}
+div#ui_container h1 a {font-family:'Audiowide', Helvetica, Arial, sans-serif,cursive; font-size:2.8rem; margin:0; color:#ffffff; text-shadow:0 2px #6e6e86; text-decoration:none;}
+div#ui_container p {font-family:'Raleway', Helvetica, Arial,sans-serif; color:#ffffff; font-weight:lighter; font-size:1.6rem; text-align:center;}
+
+div#search_container {
+    background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffffff 1%, #ffffff 47%, #efefef 99%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #ffffff 1%,#ffffff 47%,#efefef 99%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #ffffff 1%,#ffffff 47%,#efefef 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ 
+	position:relative; border:1px solid #8687a1; 
+	border-radius:5px; margin:0 auto;
+	padding:3rem 0 4.4rem 0;
+}
+
+/* FORM + FORM CONTAINER STYLE */
+div#form_container {width:80%; text-align:center; margin:0 auto; border:1px solid #c9cbd9; border-radius:3px; padding:2rem 1rem; margin-top:1.6rem;}
+div#form_container p {color:#484862; text-transform:uppercase; font-size:1rem; font-weight:bold; text-align:center; margin:0; padding-bottom:3rem;text-shadow:0px 1px 0px #484862;}
+div#input_box {margin:0 auto; width:100%;position:relative; left:0.3rem;}
+div#input_box input {padding:0.5rem;}
+div#input_box button {padding:0.6rem 0.5rem 0.5rem 0.5rem; background-color:#ffffff; border:1px solid #c8c8c8;text-transform:uppercase; border-radius:2px; cursor:pointer;}
+div#input_box button:hover {background-color:#8687a1;}
+
+
+/* API RESULTS STYLES */
+div#result_container {width:100%; min-width:480px; max-width:1200px; margin:0 auto; margin-top:-13rem; position:relative; left:-0.9rem;}
+#result_container:after {display:block;content:"";clear:both;}
+ul#search_results {list-style-type: none; padding:0; margin:0;}
+ul#search_results:after {display:block; content:""; clear:both;}
+ul#search_results li {float:left; width:300px; margin:0 0 2rem 2rem;}
+
+/* TILE STYLES */  
+div#result_container div.tile {padding:1rem; position:relative; background-color:#ffffff; height;auto; text-align:center; border:1px solid #8687a1; border-radius:3px;float:left;width:300px;margin:0 0 2rem 2rem;} 
+.logo-cont {margin-top:30px;}
+div#result_container div.tile img.twitter_profile_img {float:left; margin-right:0.5rem; margin-top:1rem; padding:0.2rem; border:1px solid #8687a1; border-radius:1px;}
+div#result_container div.tile p {text-align:left; line-height: 150%; font-size:0.9rem; color:#333333;}
+div#result_container div.nyt_tile div.blurb_container p.blurb {font-size:0.8rem;color:#2e2e2e;}
+div#result_container div.tile p.date {font-size:0.9rem; color:#7f7f7f; margin-bottom:0rem;}
+div#result_container div.youtube_tile p.date {margin-left:0rem;}
+div#result_container div.tile h3 {text-transform:capitalize; text-align:center;margin-top:0;padding:0;}
+div#result_container div.tile h3 a {text-decoration:none; color:#2e2e2e;}
+div#result_container div.tile h3 a:hover {text-decoration:underline;}
+div#result_container div.twitter_tile a.twitter-user{color:#333333;}
+div#result_container div.youtube_tile a.video-title{color:#333333;font-weight:bold;}
+
+/* FOOTER STYLES */
+footer {height:15rem; width:100%; background-color:#484862;}
+footer div#footer_container {width:90%; min-width:17rem; max-width:50rem; margin:0 auto; position:relative; top:1.8rem;}
+footer div#footer_container h4 {font-family:'Audiowide', Helvetica, Arial, sans-serif,cursive; margin:0;}
+footer div#footer_container h4 a {font-family:'Audiowide', Helvetica, Arial, sans-serif,cursive;font-size:1.5rem;text-decoration:none; color:#ffffff;}
+footer div#footer_container p, footer div#footer_container a {font-family:'Raleway', Helvetica, Arial,sans-serif; text-decoration:none; color:#ffffff; text-align:center; font-size:1rem; line-height:150%;}
+footer div#footer_container p a:hover {text-decoration:underline;}
+span.divider {padding:0 1rem;}
+footer div#footer_container p.copyright {font-size:0.8rem;}
