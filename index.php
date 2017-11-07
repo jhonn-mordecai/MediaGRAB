@@ -13,9 +13,9 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 use Madcoda\Youtube;
 
 
-//////////
+///////////////////
 /// START LOGIC
-/////////
+//////////////////
 
 
 // Init vars
@@ -56,7 +56,7 @@ if ($q) {
 	$youtube_response = $youtube_api->searchVideos($q);
 	
 	// Connext to NYTimes
-	$nyapikey = '397181a40e054766bafb602d81942301';
+	$nyapikey = '8bfb07dcd48f4b4093ed1bd55bc50af6';
 	$nytimes = new NYTimesAPI($nyapikey);
 
 	// Get NYTimes Results
@@ -85,7 +85,9 @@ if ($q) {
 				'type' => 'twitter',
 				'profile_img' => $value->user->profile_image_url,
 				'twitter_user' => $value->entities->user_mentions[0]->screen_name,
+				'name' => $value->entities->user_mentions[0]->name,
 				'tweet' => $value->text,
+				'tweet_id' => $value->id,
 				'timestamp' => strtotime($value->created_at)
 			);			
 		}
@@ -97,7 +99,10 @@ if ($q) {
 			$all_results[] = array (
 				'type' => 'youtube',
 				'video' => $youtube_response[$key]->id->videoId,
-				'timestamp' => strtotime($youtube_response[$key]->snippet->publishedAt)
+				'video_title' => $youtube_response[$key]->snippet->title,
+				'timestamp' => strtotime($youtube_response[$key]->snippet->publishedAt),
+				'channel_title' => $youtube_response[$key]->snippet->channelTitle,
+				'channel_id' => $youtube_response[$key]->snippet->channelId
 			);
 		}
 	}
@@ -108,7 +113,7 @@ if ($q) {
 				'type' => 'nytimes',
 				'nyt_url' => $value['web_url'],
 				'nyt_headline' => $value['headline']['main'],
-				'nyt_blurb' => $value['lead_paragraph'],
+				'nyt_blurb' => $value['snippet'],
 				'timestamp' => strtotime($value['pub_date'])
 			);
 		}
@@ -134,20 +139,24 @@ if ($q) {
 	// GET RANDOM ARRAY VALUES
 	shuffle($all_results);
 	
-	
-	//echo '<pre>';
-	//print_r($twitter_response);
-	//echo '</pre>';
-	//exit;
+
+/////////////////////////////////////
+// For Troubleshooting/Testing
+/////////////////////////////////////
+
+/*
+	echo '<pre>';
+	print_r($twitter_response);
+	echo '</pre>';
+	exit;
+*/
 	
 }
 
-
-
-///////////
+/////////////////////////////
 /// END LOGIC
 /// START OUTPUT (VIEW)
-///////////
+/////////////////////////////
 
 ?>
 
@@ -164,7 +173,7 @@ if ($q) {
 	<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css' />
 	<!-- font-family: 'Raleway', sans-serif; -->
 	<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css' />
-	
+
 	<link href='css/api_styles.css' rel='stylesheet' type='text/css' />
 	
 </head>
@@ -187,7 +196,7 @@ if ($q) {
 		        <div id="search_container">
 			        <div id="form_container">
 			            <p>What are you looking for?</p>
-			            <form id="search_submit" action="/apis/index.php" method="GET">
+			            <form id="search_submit" action="index.php" method="GET">
 			                <div id="input_box">
 			                    <input type="text" name="q" id="q" size="30" placeholder="Search" value="<?php echo $q; ?>">
 			                    <button id="search_submit" type="submit">Search</button>
@@ -198,59 +207,88 @@ if ($q) {
 			</div>
 	
 			
-			<div id="result_container">
-				
-				<ul id="search_results">
+			<div id="result_container" class="grid" data-masonry='{"itemSelector": ".grid-item", "columnWidth":400}'>
+									
+				<?php 	
 					
-					<?php 	
+					foreach ($all_results as $key => $value) {
 						
-						foreach ($all_results as $key => $value) {
+						if ($value['type'] == 'twitter') { ?>
 							
-							if ($value['type'] == 'twitter') {
-								echo '<li>';
-								echo '<div class="tile twitter_tile">';
-								echo '<a href="https://www.twitter.com/'.$value['twitter_user'].'" target="_blank"><img class="twitter_profile_img" src="'.$value['profile_img'].'" alt="profile_img" /></a>';
-								echo '<p>'.$value['tweet'].'</p>';
-								echo '<p class="date">'.date("F j, Y, g:i a", $value['timestamp']).'</p>';
-								echo '<a href="http://www.twitter.com" title="twitter" target="_blank"><img class="api_logo_35" src="img/twitter_logo.svg" alt="Twitter" /></a>';
-								echo '</div>';
-								echo '</li>';	
-							}
+							<div class="tile twitter_tile grid-item">
+								<a href="https://www.twitter.com/<?= $value['twitter_user']; ?>/status/<?= $value['tweet_id']; ?>" target="_blank">
+									<img class="twitter_profile_img" src="<?= $value['profile_img']; ?>" alt="profile_img" />
+								</a>
+								<p>
+									<a class="twitter-user" href="https://www.twitter.com/<?= $value['twitter_user']; ?>/status/<?= $value['tweet_id']; ?>" target="_blank"><?= $value['name']; ?></a>
+									<br>
+									<?= $value['tweet']; ?>
+								</p>
+								<p class="date"><?= date("F j,Y, g:i a", $value['timestamp']); ?></p>
+								<div class="logo-cont text-center">
+									<a href="https://www.twitter.com/<?= $value['twitter_user']; ?>/status/<?= $value['tweet_id']; ?>" target="_blank">
+										<img class="api_logo_35" src="img/twitter_logo.svg" alt="Twitter" />
+									</a>
+								</div>
+							</div>
+
+						<?php } 
+						
+						elseif ($value['type'] == 'youtube') { ?>
+
+							<div class="tile youtube_tile grid-item">
+								<iframe width="275" height="200" src="https://www.youtube.com/embed/<?= $value['video']; ?>" frameborder="0" allowfullscreen></iframe>
+								<br>
+								<p><a class="video-title" href="https://youtu.be/<?= $value['video']; ?>" target="_blank"><?= $value['video_title']; ?></a></p>
+								<p class="date"><?= date("F j, Y, g:i a", $value['timestamp']); ?></p>
+								
+								<p>By <a href="https://www.youtube.com/channel/<?= $value['channel_id']; ?>" target="_blank"> <?= $value['channel_title']; ?></a></p>
+								<div class="logo-cont text-center">
+									<a href="https://youtu.be/<?= $value['video']; ?>" title="youtube" target="_blank">
+										<img class="api_logo_35" src="img/yt_logo.svg" alt="YouTube" />
+									</a>
+								</div>
+							</div>
+													
+						<?php }
+						
+						elseif ($value['type'] == 'nytimes') { ?>
+						
+							<div class="tile nyt_tile grid-item">
+								<h3>
+									<a href="<?= $value['nyt_url']; ?>" title="<?= $value['nyt_headline']; ?>" target="_blank"><?= $value['nyt_headline']; ?></a>
+								</h3>
+								<p class="date"><?= date("F j, Y, g:i a", $value['timestamp']); ?></p>
+								<div class="blurb_container">
+									<p class="blurb"><?= $value['nyt_blurb']; ?></p>
+								</div>
+								<div class="logo-cont text-center">
+									<a href="<?= $value['nyt_url']; ?>" title="the new york times" target="_blank">
+										<img class="api_logo_100" src="img/nyt_logo.svg" alt="The New York Times" />
+									</a>
+								</div>
+							</div>
+														
+						<?php }
+						
+						else if ($value['type'] == 'guardian') { ?>
 							
-							elseif ($value['type'] == 'youtube') {
-								echo '<li>';
-								echo '<div class="tile youtube_tile">';
-								echo '<iframe width="250" height="175" src="https://www.youtube.com/embed/'.$value['video'].'" frameborder="0" allowfullscreen></iframe><br />';
-								echo '<p class="date">'.date("F j, Y, g:i a", $value['timestamp']).'</p>';
-								echo '<a href="http://www.youtube.com" title="youtube" target="_blank"><img class="api_logo_35" src="img/yt_logo.svg" alt="YouTube" /></a>';
-								echo '</div>';
-								echo '</li>';
-							}
-							
-							elseif ($value['type'] == 'nytimes') {
-								echo '<li>';
-								echo '<div class="tile nyt_tile">';
-								echo '<h3><a href="'.$value['nyt_url'].'" title="'.$value['nyt_headline'].'" target="_blank">'.$value['nyt_headline'].'</a></h3>';
-								echo '<p class="date">'.date("F j, Y, g:i a", $value['timestamp']).'</p>';
-								echo '<div class="blurb_container"><p class="blurb">'.$value['nyt_blurb'].'</p></div>';
-								echo '<a href="http://www.nytimes.com" title="the new york times" target="_blank"><img class="api_logo_100" src="img/nyt_logo.svg" alt="The New York Times" /></a>';
-								echo '</div>';
-								echo '</li>';
-							}
-							
-							else if ($value['type'] == 'guardian') {
-								echo '<li>';
-								echo '<div class="tile guardian_tile">';
-								echo '<h3><a href="'.$value['guardian_url'].'" title="'.$value['guardian_title'].'" target="_blank">'.$value['guardian_title'].'</a></h3>';
-								echo '<p class="date">'.date("F j, Y, g:i a", $value['timestamp']).'</p>';
-								echo '<p class="g_section">'.$value['section'].'</p>';
-								echo '<a href="http://www.theguardian.com" title="the guardian" target="_blank"><img class="api_logo_100" src="img/guardian_logo.svg" alt="The Guardian" /></a>';
-								echo '</div>';
-								echo '</li>';
-							}
-						}	
-					?>	
-				</ul>
+							<div class="tile guardian_tile grid-item">
+								<h3>
+									<a href="<?= $value['guardian_url']; ?>" title="<?= $value['guardian_url']; ?>" target="_blank"><?= $value['guardian_title']; ?></a>
+								</h3>
+								<p class="date"><?= date("F j, Y, g:i a", $value['timestamp']); ?></p>
+								<p class="g_section"><?= $value['section']; ?></p>
+								<div class="logo-cont text-center">
+									<a href="<?= $value['guardian_url']; ?>" title="the guardian" target="_blank">
+										<img class="api_logo_100" src="img/guardian_logo.svg" alt="The Guardian" />
+									</a>
+								</div>
+							</div>
+														
+						<?php }
+					}	
+				?>	
 			</div>	
 		
 		</div>
@@ -268,5 +306,7 @@ if ($q) {
 			
 		</footer>
 		
+		<!-- Masonry JS CDN -->
+		<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 </body>
 </html>
